@@ -53,7 +53,7 @@ Output:
         $stringUp = Str::upper($string);
 
         // Converts input string to alternate upperand lower case
-        for ( $i = 0; $i <= strlen($string) - 1; $i += 1) {
+        for ( $i = 0; $i <= strlen($string) - 1; $i++) {
             if ( $i % 2) {
                 $arrAlt[]=Str::upper($string[$i]);
             }
@@ -67,21 +67,21 @@ Output:
         $stringAlt = implode($arrAlt);
 
         // Generate each input string characters into CSV file
-        $this->createCsv($arr4csv);
+        $file_path = storage_path('app\string.csv');
+        $this->createCsv($arr4csv, $file_path);
 
         $this->info("1. $stringUp");
         $this->info("2. $stringAlt");
-        $this->info("3. CSV created!");
+        $this->info("3. CSV created at $file_path");
 
         // $this->info("argument: ".$this->argument('inputsrt'));
         // $this->info("option: ".$this->option('char'));
 
     }
 
-    private function createCsv(array $columns) {
-        $file_name = 'string.csv';
+    public function createCsv(array $columns, string $file) {
         
-        $fp = fopen($file_name, 'w');
+        $fp = fopen($file, 'w');
         fputcsv($fp, $columns);
         fclose($fp);
     }
